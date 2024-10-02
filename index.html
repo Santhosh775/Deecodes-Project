@@ -157,13 +157,13 @@
         </section> -->
         <section>
             <div class="slider-container">
-                <div class="slider-image">
-                    <img src="./public/slide1.jpg" alt="" class="img1 active">
-                    <img src="./public/slide2.avif" alt="" class="img2">
-                </div>
-                <div class="slider-material">
+                <!-- Slide 1 -->
+                <div class="slide active"> <!-- Add 'active' to the first slide -->
+                    <div class="slider-image">
+                        <img src="./public/slide1.jpg" alt="" class="img active">
+                    </div>
                     <div class="slider-body">
-                        <div class="slide-content active">
+                        <div class="slide-content active"> <!-- Add 'active' to the first content -->
                             <span class="new">New</span>
                             <h2>Meet Surface Pro</h2>
                             <div class="para">
@@ -171,6 +171,15 @@
                             </div>
                             <button>Learn more</button>
                         </div>
+                    </div>
+                </div>
+        
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <div class="slider-image">
+                        <img src="./public/slide2.avif" alt="" class="img">
+                    </div>     
+                    <div class="slider-body1">
                         <div class="slide-content">
                             <span class="new">New</span>
                             <h2>Meet Surface Laptop</h2>
@@ -181,17 +190,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="slider-icon">
-                    <span><i class="bi bi-play-circle" id="playPauseIcon"></i></span>
-                    <span><i class="bi bi-chevron-left" id="chevronLeft"></i></span>
-                    <span><i class="bi bi-circle-fill" id="circle1"></i></span>
-                    <span><i class="bi bi-circle" id="circle2"></i></span>
-                    <span><i class="bi bi-chevron-right" id="chevronRight"></i></span>
-                </div>
+            </div>
+        
+            <!-- Slider Controls -->
+        </section>
+        <section>
+            <div class="slider-icon">
+                <span><i class="bi bi-play-circle" id="playPauseIcon"></i></span>
+                <span><i class="bi bi-chevron-left" id="chevronLeft"></i></span>
+                <span><i class="bi bi-circle-fill" id="circle1"></i></span>
+                <span><i class="bi bi-circle" id="circle2"></i></span>
+                <span><i class="bi bi-chevron-right" id="chevronRight"></i></span>
             </div>
         </section>
-        
-        
     <!-- Icons sections -->
         <section>
             <div class="microsoft-list">

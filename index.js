@@ -39,29 +39,24 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
 });
 
 let currentIndex = 0;
-let isPlaying = false;
-let slideInterval;
-const slides = document.querySelectorAll('.slider-image img');
+let isPlaying = true; // Start playing by default
+let slideInterval = setInterval(nextSlide, 5000); // Start the slider
+const slides = document.querySelectorAll('.slide');
 const slideContents = document.querySelectorAll('.slide-content');
 const circles = [document.getElementById('circle1'), document.getElementById('circle2')];
 
 function showSlide(index) {
-    // Move slides and update active classes
     slides.forEach((slide, i) => {
         slide.classList.remove('active');
         slideContents[i].classList.remove('active');
         circles[i].classList.remove('bi-circle-fill');
         circles[i].classList.add('bi-circle');
     });
-    
+
     slides[index].classList.add('active');
     slideContents[index].classList.add('active');
     circles[index].classList.remove('bi-circle');
     circles[index].classList.add('bi-circle-fill');
-    
-    // Adjust the position of the slides
-    const offset = -index * 50; // 50% for each image
-    document.querySelector('.slider-image').style.transform = `translateX(${offset}%)`;
 }
 
 function nextSlide() {
@@ -80,18 +75,29 @@ document.getElementById('playPauseIcon').addEventListener('click', function() {
     this.classList.toggle('bi-pause-circle', isPlaying);
 
     if (isPlaying) {
-        slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        slideInterval = setInterval(nextSlide, 5000); // Resume the slider
     } else {
-        clearInterval(slideInterval);
+        clearInterval(slideInterval); // Pause the slider
     }
 });
 
 document.getElementById('chevronRight').addEventListener('click', nextSlide);
 document.getElementById('chevronLeft').addEventListener('click', prevSlide);
 
-// Show the initial slide
-showSlide(currentIndex);
+// Event listeners for circle navigation
+circles.forEach((circle, i) => {
+    circle.addEventListener('click', () => {
+        currentIndex = i;
+        showSlide(currentIndex);
+        if (isPlaying) {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000); 
+        }
+    });
+});
 
+// Start the slider initially
+showSlide(currentIndex);
 
 document.querySelector('.back-to-top').addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

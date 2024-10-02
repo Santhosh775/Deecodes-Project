@@ -177,41 +177,60 @@ i.bi-chevron-down {
 }
 
 .slider-container {
-    width: 100%;
+    width: 100%; 
+    display: flex;
+    transition: transform 1.5s ease-in-out;
     position: relative;
     overflow: hidden;
 }
 
-.slider-image {
+.slide {
+    width: 100%; 
+    display: none; /* Hide by default */
     position: relative;
-    display: flex; /* Ensure images are in a row */
-    transition: transform 0.8s ease-in-out; /* Smooth transition effect */
-    width: 200%; /* Set width to 200% to accommodate both slides */
+}
+
+.slide.active {
+    display: flex; /* Show only the active slide */
+}
+
+.slider-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .slider-image img {
-    width: 50%; /* Each image should take up 50% of the slider container */
+    width: 100%;
+    object-fit: cover;
 }
 
-.slider-material {
+.slider-body, .slider-body1 {
     position: absolute;
-    top: 1%;
-    left: 2%;
-    z-index: 1; 
+    top: 10%;
+    left: 5%;
+    z-index: 1;
     padding: 40px;
-    width: 50vh;
-}
-
-.slider-body {
-    position: relative;
-    background-color: white;
     width: 410px;
     height: 220px;
-    padding: 50px;
-    overflow: hidden; /* Prevents overlap */
+    background: white;
+    opacity: 0.9;
 }
 
-.slider-body .new {
+.slider-body1 {
+    background: transparent;
+}
+
+.slide-content {
+    display: none; /* Hide the content by default */
+}
+
+.slide-content.active {
+    display: block; /* Show only active content */
+}
+
+.slide-content .new {
     background-color: #ffb900;
     width: max-content;
     margin: 0 0 8px;
@@ -220,21 +239,21 @@ i.bi-chevron-down {
     font-weight: 500;
 }
 
-.slider-body h2 {
+.slide-content h2 { 
     padding-top: 10px;
     margin: 0 0 18px;
     font-size: 30px;
     font-weight: 500;
 }
 
-.slider-body .para {
+.slide-content .para {
     margin: 0 0 22px;
     width: 420px;
     font-size: 16px;
     line-height: 1.5;
-} 
+}
 
-.slider-body button {
+.slide-content button {
     text-align: center;
     border: 2px solid transparent;
     text-decoration: none;
@@ -244,14 +263,7 @@ i.bi-chevron-down {
     padding: 10px 12px;
     font-size: 15px;
     font-weight: bold;
-}
-
-.slide-content {
-    display: none; /* Use 'none' to hide inactive content */
-}
-
-.slide-content.active {
-    display: block; /* Show active content */
+    cursor: pointer;
 }
 
 .slider-icon {
@@ -266,18 +278,19 @@ i.bi-chevron-down {
     cursor: pointer;
 }
 
+.slider-icon .bi-play-circle,
+.slider-icon .bi-chevron-left,
+.slider-icon .bi-chevron-right {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
 .slider-icon .bi-circle-fill,
-.bi-circle {
+.slider-icon .bi-circle {
     margin: 0;
     font-size: 10px;
 }
 
-.slider-icon span .bi-play-circle,
-.bi-chevron-left,
-.bi-chevron-right {
-    margin-top: 10px;
-    font-size: 20px;
-}
 
 
 .microsoft-list {
@@ -554,175 +567,198 @@ footer .down ul li a:hover{
         padding: 0;
     }
 
-    /* .slider-container {
-        width: 100%;
-        height: 560px;
-        margin: 0;
-        padding: 0;
-        background-image: url(./public/slide11024.jpg);
-    }
-
-    .slider-container img {
-        display: none;
-    }
-
-    .slider-material {
-        margin-left: 0;
-        padding: 0;
-    }
-
-    .slider-body {
-        width: 177vh;
-        height: 237px;
-        padding: 6% 0;
-        margin: 508px 0 0 -9px;
-        padding-right: 7%;
-    }
-
-    .slider-icon {
-        padding-top: 78%;
-    }
-
-    .slider-icon .bi-circle-fill,
-    .bi-circle {
-        font-size: 10px;
-        margin: 0;
-    }
-
-    .slider-icon span .bi-play-circle,
-    .bi-chevron-left,
-    .bi-chevron-right {
-        font-size: 20px;
-        margin-top: 10px;
-    }
-
-    .slide-content {
-        padding: 29px;
-    }
-
-    .slide-content .new {
-        background-color: #ffb900;
-        padding: 6px 12px;
-        font-size: 16px;
-        margin-left: 22px;
-        font-weight: 500;
-        width: max-content;
-    }
-
-    .slide-content h2 {
-        font-size: 24px;
-        font-weight: 500;
-        margin: 0 0 10px 22px;
-        padding-top: 10px;
-    }
-
-    .slide-content .para {
-        font-size: 16px;
-        margin: 0 0 22px 22px;
-        width: 160vh;
-        line-height: 1.5;
-    }
-
-    .slide-content button {
-        font-size: 15px;
-        font-weight: bold;
-        padding: 10px 12px;
-        margin-left: 22px;
-        background-color: #0067b8;
-        color: white;
-        text-align: center;
-        border: 2px solid transparent;
-    } */
-
     .slider-container {
         width: 100%;
-        height: auto;
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        transition: transform 1.5s ease-in-out;
         position: relative;
         overflow: hidden;
     }
     
+    .slide {
+        width: 100%;
+        display: none; /* Hide by default */
+    }
+    
+    .slide.active {
+        display: block; /* Show only the active slide */
+    }
+    
     .slider-image {
-        position: relative;
+        width: 100%;
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        justify-content: center;
+        align-items: center;
     }
     
     .slider-image img {
         width: 100%;
-        height: auto;
-        display: none;
+        object-fit: cover;
     }
     
-    .slider-image img.active {
-        display: block;
-    }
+    .slider-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    transition: transform 1.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    display: none; /* Hide by default */
+}
+
+.slide.active {
+    display: block; /* Show only the active slide */
+}
+
+.slider-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.slider-body, .slider-body1 {
+    position: relative;
+    margin: -44px 0px 0px -41px;
+    padding: 0;
+    width: 98%;
+    background-color: white;
+    opacity: 0.9;
+}
+
+
+
+.slide-content {
+    display: none; /* Hide the content by default */
+    width: 100%;
+    text-align: center; /* Center align content */
+}
+
+.slide-content.active {
+    display: block;
+}
+
+.slide-content .new {
+    background-color: #ffb900;
+    width: max-content;
+    margin: 0 auto 8px; /* Centered */
+    padding: 3px 12px 4px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.slide-content h2 {
+    padding-top: 10px;
+    margin: 0 0 18px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.slide-content .para {
+    margin: 0 auto 22px; /* Centered */
+    width: 420px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.slide-content button {
+    text-align: center;
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: white;
+    background-color: #0067B8;
+    margin: 8px 0;
+    padding: 10px 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.slider-icon {
+    margin-top: 20px; /* Space between content and icons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-icon span {
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.slider-icon .bi-play-circle,
+.slider-icon .bi-chevron-left,
+.slider-icon .bi-chevron-right {
+    font-size: 20px;
+}
+
+.slider-icon .bi-circle-fill,
+.slider-icon .bi-circle {
+    font-size: 10px;
+}
+
     
-    .slider-material {
-        position: absolute;
-        top: 1%;
-        left: 2%;
-        z-index: 1; 
-        padding: 40px;
-        width: 50vh;
-    }
     
-    .slider-body {
-        position: relative;
-        background-color: white;
-        width: 958px;
-        height: 165px;
-        padding: 20% 10%;
-        margin: 344px 1px 1px -50px;
-        padding-right: 7%;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        overflow: hidden;
+    .slide-content {
+        display: none; /* Hide the content by default */
+        width: 100%;
+        text-align: center; /* Center align content */
     }
     
     .slide-content.active {
-        display: block; 
-    }
-
-    .slide-content {
-        display: none;
+        display: block;
     }
     
     .slide-content .new {
         background-color: #ffb900;
-        padding: 4px 10px;
-        font-size: 16px;
-        margin-left: 22px;
-        font-weight: 500;
         width: max-content;
-    }
-
-    .slide-content h2 {
-        font-size: 24px;
-        font-weight: 500;
-        margin: 0 0 10px 22px;
-        padding-top: 10px;
-    }
-
-    .slide-content .para {
+        margin: 0 auto 8px; /* Centered */
+        padding: 3px 12px 4px;
         font-size: 16px;
-        margin: 0 0 16px 22px;
-        width: 160vh;
+        font-weight: 500;
+    }
+    
+    .slide-content h2 {
+        padding-top: 10px;
+        margin: 0 0 18px;
+        font-size: 30px;
+        font-weight: 500;
+    }
+    
+    .slide-content .para {
+        margin: 0 auto 22px; /* Centered */
+        width: 420px;
+        font-size: 16px;
         line-height: 1.5;
     }
-
+    
     .slide-content button {
-        font-size: 15px;
-        font-weight: bold;
-        padding: 10px 12px;
-        margin-left: 22px;
-        background-color: #0067b8;
-        color: white;
         text-align: center;
         border: 2px solid transparent;
-        border-radius: 5%;
-    } 
-
+        text-decoration: none;
+        color: white;
+        background-color: #0067B8;
+        margin: 8px 0;
+        padding: 10px 12px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
     .slider-icon {
-        padding-top: 24%;
+        margin-top: 20px; /* Space between content and icons */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -733,19 +769,17 @@ footer .down ul li a:hover{
         cursor: pointer;
     }
     
-    .slider-icon .bi-circle-fill,
-    .bi-circle {
-        margin: 0px;
-        font-size: 10px;
-    }
-    .slider-icon span 
-    .bi-play-circle,
-    .bi-chevron-left,
-    .bi-chevron-right {
-        margin-top: 10px;
+    .slider-icon .bi-play-circle,
+    .slider-icon .bi-chevron-left,
+    .slider-icon .bi-chevron-right {
         font-size: 20px;
     }
-
+    
+    .slider-icon .bi-circle-fill,
+    .slider-icon .bi-circle {
+        font-size: 10px;
+    }
+    
     .microsoft-list {
         display: flex;
         flex-direction: row;

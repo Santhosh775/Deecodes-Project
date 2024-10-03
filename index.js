@@ -19,6 +19,11 @@ hamburgerIcon.addEventListener('click', () => {
     isMenuOpen = !isMenuOpen;
 });
 
+document.getElementById('toggleDropdown').addEventListener('click', function() {
+        const dropdownList = document.querySelector('.dropdown-list');
+        dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+});
+
 document.addEventListener('click', function(event) {
     let dropdowns = document.querySelectorAll('.dropdown-content');
     dropdowns.forEach(dropdown => {

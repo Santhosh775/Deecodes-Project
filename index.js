@@ -38,66 +38,91 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
     });
 });
 
-let currentIndex = 0;
-let isPlaying = true; // Start playing by default
-let slideInterval = setInterval(nextSlide, 5000); // Start the slider
-const slides = document.querySelectorAll('.slide');
-const slideContents = document.querySelectorAll('.slide-content');
-const circles = [document.getElementById('circle1'), document.getElementById('circle2')];
+const sliderContainer = document.querySelector('.slider-container');
+const playPauseIcon = document.getElementById('playPauseIcon');
+const chevronLeft = document.getElementById('chevronLeft');
+const chevronRight = document.getElementById('chevronRight');
+const circle1 = document.getElementById('circle1');
+const circle2 = document.getElementById('circle2');
 
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        slideContents[i].classList.remove('active');
-        circles[i].classList.remove('bi-circle-fill');
-        circles[i].classList.add('bi-circle');
-    });
+let currentSlide = 0;
+let isPlaying = true;
+let slideInterval;
 
-    slides[index].classList.add('active');
-    slideContents[index].classList.add('active');
-    circles[index].classList.remove('bi-circle');
-    circles[index].classList.add('bi-circle-fill');
+const startSlider = () => {
+    slideInterval = setInterval(nextSlide, 5000); 
 }
 
-function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
+
+const stopSlider = () => {
+    clearInterval(slideInterval);
 }
 
-function prevSlide() {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
+
+const nextSlide = () => {
+    currentSlide = (currentSlide + 1) % 2; 
+    updateSliderPosition();
+    updateIndicators();
 }
 
-document.getElementById('playPauseIcon').addEventListener('click', function() {
-    isPlaying = !isPlaying;
-    this.classList.toggle('bi-play-circle', !isPlaying);
-    this.classList.toggle('bi-pause-circle', isPlaying);
 
-    if (isPlaying) {
-        slideInterval = setInterval(nextSlide, 5000); // Resume the slider
+const prevSlide = () => {
+    currentSlide = (currentSlide - 1 + 2) % 2; 
+    updateSliderPosition();
+    updateIndicators();
+}
+
+
+const updateSliderPosition = () => {
+    sliderContainer.style.transform = `translateX(-${currentSlide * 50}%)`; 
+}
+
+
+const updateIndicators = () => {
+    if (currentSlide === 0) {
+        circle1.classList.add('bi-circle-fill');
+        circle1.classList.remove('bi-circle');
+        circle2.classList.add('bi-circle');
+        circle2.classList.remove('bi-circle-fill');
     } else {
-        clearInterval(slideInterval); // Pause the slider
+        circle1.classList.add('bi-circle');
+        circle1.classList.remove('bi-circle-fill');
+        circle2.classList.add('bi-circle-fill');
+        circle2.classList.remove('bi-circle');
+    }
+}
+
+playPauseIcon.addEventListener('click', () => {
+    if (isPlaying) {
+        stopSlider();
+        playPauseIcon.classList.replace('bi-pause-circle', 'bi-play-circle');
+    } else {
+        startSlider();
+        playPauseIcon.classList.replace('bi-play-circle', 'bi-pause-circle');
+    }
+    isPlaying = !isPlaying;
+});
+
+
+chevronRight.addEventListener('click', () => {
+    stopSlider();
+    nextSlide();
+    if (isPlaying) {
+        startSlider(); 
     }
 });
 
-document.getElementById('chevronRight').addEventListener('click', nextSlide);
-document.getElementById('chevronLeft').addEventListener('click', prevSlide);
 
-// Event listeners for circle navigation
-circles.forEach((circle, i) => {
-    circle.addEventListener('click', () => {
-        currentIndex = i;
-        showSlide(currentIndex);
-        if (isPlaying) {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000); 
-        }
-    });
+chevronLeft.addEventListener('click', () => {
+    stopSlider();
+    prevSlide();
+    if (isPlaying) {
+        startSlider(); 
+    }
 });
 
-// Start the slider initially
-showSlide(currentIndex);
+startSlider();
+
 
 document.querySelector('.back-to-top').addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

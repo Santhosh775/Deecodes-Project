@@ -177,21 +177,16 @@ i.bi-chevron-down {
 }
 
 .slider-container {
-    width: 100%; 
+    width: 200%; 
     display: flex;
-    transition: transform 1.5s ease-in-out;
-    position: relative;
-    overflow: hidden;
+    transition: transform 1s ease-in-out;
 }
 
 .slide {
-    width: 100%; 
-    display: none; /* Hide by default */
+    width: 50%;
+    flex-shrink: 0;
     position: relative;
-}
-
-.slide.active {
-    display: flex; /* Show only the active slide */
+    display: flex;
 }
 
 .slider-image {
@@ -220,14 +215,6 @@ i.bi-chevron-down {
 
 .slider-body1 {
     background: transparent;
-}
-
-.slide-content {
-    display: none; /* Hide the content by default */
-}
-
-.slide-content.active {
-    display: block; /* Show only active content */
 }
 
 .slide-content .new {
@@ -290,8 +277,6 @@ i.bi-chevron-down {
     margin: 0;
     font-size: 10px;
 }
-
-
 
 .microsoft-list {
     margin: 0 100px;
@@ -637,7 +622,6 @@ footer .down ul li a:hover{
     background-color: white;
     opacity: 0.9;
 }
-
 
 
 .slide-content {
